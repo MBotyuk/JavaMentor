@@ -2,17 +2,14 @@ package service;
 
 import model.User;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class UserService {
 
     /* хранилище данных */
     private Map<Long, User> dataBase = Collections.synchronizedMap(new HashMap<>());
-    /* счетчик id */
+    /* счетчик id для dataBase */
     private AtomicLong maxId = new AtomicLong(0);
     /* список авторизованных пользователей */
     private Map<Long, User> authMap = Collections.synchronizedMap(new HashMap<>());
@@ -29,45 +26,94 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return (List<User>) dataBase.values();
-    }
+        Set<Long> list = dataBase.keySet(); // код взял с https://docs.oracle.com/ SynchronizedMap
+        ArrayList<User> usersDataBase = new ArrayList<>();
+
+        synchronized (list){ // раньше учил многопоточность, и поэтому мне кажется смысла в этом блоке нет
+            Iterator iterator = list.iterator();
+            while (iterator.hasNext()) {
+                usersDataBase.add(getUserById((Long) iterator.next()));
+            }
+        }
+        return usersDataBase;
+//        ArrayList<User> usersDataBase = new ArrayList<>();
+//        for (long i = 1; i <= maxId.longValue(); i++) {
+//            usersDataBase.add(getUserById(i));
+//        }
+//        return usersDataBase;
+    } // +
 
     public User getUserById(Long id) {
         return dataBase.get(id);
-    }
+    } // +
 
     public boolean addUser(User user) {
-        boolean result = isExistsThisUser(user);
-        if(!dataBase.containsKey(user.getId())){
-            dataBase.put(maxId.incrementAndGet(), user);
+
+        if (dataBase.isEmpty()){
+            user.setId(maxId.incrementAndGet());
+            dataBase.put(user.getId(), user);
+            return true;
+        }
+
+        if (!isExistsThisUser(user)){
+            user.setId(maxId.incrementAndGet());
+            dataBase.put(user.getId(), user);
             return true;
         }
         return false;
-    }
+    } // +
 
     public void deleteAllUser() {
         dataBase.clear();
-    }
+    } // +
 
     public boolean isExistsThisUser(User user) {
-        return dataBase.containsValue(user);
-    }
+        for(User userDataBase : getAllUsers()){
+            if (user.equals(userDataBase)){
+                return true;
+            }
+        }
+        return false;
+    } // + есть ли такой User в базе?
 
     public List<User> getAllAuth() {
-        return (List<User>) authMap.values();
-    }
+        Collection<User> list = authMap.values(); // код взял с https://docs.oracle.com/ SynchronizedMap
+        ArrayList<User> usersDataBase = new ArrayList<>();
+
+        synchronized (list){ // раньше учил многопоточность, и поэтому мне кажется смысла в этом блоке нет
+            Iterator iterator = list.iterator();
+            while (iterator.hasNext()) {
+                usersDataBase.add((User) iterator.next());
+            }
+        }
+        return usersDataBase;
+    } // +/-
 
     public boolean authUser(User user) {
-        return authMap.containsValue(user);
-    }
+        if (authMap.isEmpty()){
+            authMap.put(user.getId(), user);
+            return true;
+        }
+
+        if (!isUserAuthById(user.getId())){
+            user.setId(maxId.incrementAndGet());
+            dataBase.put(user.getId(), user);
+            return true;
+        }
+        return false;
+    } // +
 
     public void logoutAllUsers() {
         authMap.clear();
-    }
+    } // +
 
     public boolean isUserAuthById(Long id) {
-
+        for (User userAuth : getAllAuth()){
+            if (userAuth.getId() == id) {
+                return true;
+            }
+        }
         return false;
-    }
+    } // + зареган ли такой User по id
 
 }
