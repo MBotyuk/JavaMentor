@@ -26,21 +26,21 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        Set<Long> list = dataBase.keySet(); // код взял с https://docs.oracle.com/ SynchronizedMap
-        ArrayList<User> usersDataBase = new ArrayList<>();
-
-        synchronized (list){ // раньше учил многопоточность, и поэтому мне кажется смысла в этом блоке нет
-            Iterator iterator = list.iterator();
-            while (iterator.hasNext()) {
-                usersDataBase.add(getUserById((Long) iterator.next()));
-            }
-        }
-        return usersDataBase;
+//        Set<Long> list = dataBase.keySet(); // код взял с https://docs.oracle.com/ SynchronizedMap
 //        ArrayList<User> usersDataBase = new ArrayList<>();
-//        for (long i = 1; i <= maxId.longValue(); i++) {
-//            usersDataBase.add(getUserById(i));
+//
+//        synchronized (list){ // мне кажется смысла в этом блоке нет
+//            Iterator iterator = list.iterator();
+//            while (iterator.hasNext()) {
+//                usersDataBase.add(getUserById((Long) iterator.next()));
+//            }
 //        }
 //        return usersDataBase;
+        ArrayList<User> usersDataBase = new ArrayList<>();
+        for (long i = 1; i <= maxId.longValue(); i++) { // возможно с 0 нужно
+            usersDataBase.add(getUserById(i));
+        }
+        return usersDataBase;
     } // +
 
     public User getUserById(Long id) {
@@ -65,6 +65,8 @@ public class UserService {
 
     public void deleteAllUser() {
         dataBase.clear();
+        authMap.clear();
+        maxId = new AtomicLong(0);
     } // +
 
     public boolean isExistsThisUser(User user) {
@@ -90,15 +92,13 @@ public class UserService {
     } // +/-
 
     public boolean authUser(User user) {
-        if (authMap.isEmpty()){
-            authMap.put(user.getId(), user);
-            return true;
-        }
-
-        if (!isUserAuthById(user.getId())){
-            user.setId(maxId.incrementAndGet());
-            dataBase.put(user.getId(), user);
-            return true;
+        if (isExistsThisUser(user) & !isUserAuthByUser(user)){
+            for(User userDataBase : getAllUsers()){
+                if (user.getPassword().equals(userDataBase.getPassword())){
+                    authMap.put(userDataBase.getId(), userDataBase);
+                    return true;
+                }
+            }
         }
         return false;
     } // +
@@ -115,5 +115,14 @@ public class UserService {
         }
         return false;
     } // + зареган ли такой User по id
+
+    public boolean isUserAuthByUser(User user) {
+        for(User userAuthMap : getAllAuth()){
+            if (user.equals(userAuthMap)){
+                return true;
+            }
+        }
+        return false;
+    } // + зареган ли такой User по User
 
 }

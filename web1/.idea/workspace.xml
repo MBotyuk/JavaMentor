@@ -2,24 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31066d14-a391-4987-a198-f3050d3904ab" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web2/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/servlet/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/servlet/RegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/servlet/RegistrationServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/src/main/java/util/PageGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/util/PageGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/model/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web2/target/classes/servlet/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/servlet/LoginServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/servlet/RegistrationServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/servlet/RegistrationServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/target/classes/util/PageGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/util/PageGenerator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/templates/authPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/templates/authPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/templates/registerPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/templates/registerPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web2/Документ Microsoft Word.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +49,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="C:/android-sdk" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../web2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -167,6 +161,7 @@
       <workItem from="1575716078602" duration="4847000" />
       <workItem from="1575755881779" duration="1391000" />
       <workItem from="1575793070081" duration="1875000" />
+      <workItem from="1575910903147" duration="1101000" />
     </task>
     <servers />
   </component>

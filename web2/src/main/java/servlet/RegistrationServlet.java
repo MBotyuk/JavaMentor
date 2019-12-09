@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class RegistrationServlet extends HttpServlet {
 
@@ -28,12 +25,8 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Optional<String> email = Optional.ofNullable(req.getParameter("email"));
         String email = req.getParameter("email");
-        resp.getWriter().println(email);
-//        Optional<String> password = Optional.ofNullable(req.getParameter("password"));
         String password = req.getParameter("password");
-        resp.getWriter().println(password);
 
         boolean flag = true;
         if (!email.isEmpty() & !password.isEmpty()) {
@@ -41,13 +34,25 @@ public class RegistrationServlet extends HttpServlet {
         }
 
         resp.setContentType("text/html;charset=utf-8");
+
+        test(resp);
+
         if (flag){
-            resp.getWriter().println("Error! User not create");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            resp.getWriter().println("OK! User create");
             resp.setStatus(HttpServletResponse.SC_OK);
         }
+    }
+
+    private void test(HttpServletResponse resp) throws IOException {
+        for (User user : userService.getAllUsers()){
+            resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
+        }
+
+        for (User user : userService.getAllAuth()){
+            resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
+        }
+
     }
 
 }
