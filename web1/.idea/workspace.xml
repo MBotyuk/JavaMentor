@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31066d14-a391-4987-a198-f3050d3904ab" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../web3/WebTestMachine/WebTestMachine.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web3/WebTestMachine/settings.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web3/WebTestMachine/запуск.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web3/src/main/java/executor/Executor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web3/src/main/java/executor/ResultHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/web1.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web2/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/servlet/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/src/main/java/servlet/RegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/src/main/java/servlet/RegistrationServlet.java" afterDir="false" />
@@ -11,9 +18,6 @@
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/servlet/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/servlet/LoginServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web2/target/classes/servlet/RegistrationServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/target/classes/servlet/RegistrationServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/templates/authPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/templates/authPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/templates/registerPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web2/templates/registerPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web2/Документ Microsoft Word.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,6 +166,8 @@
       <workItem from="1575755881779" duration="1391000" />
       <workItem from="1575793070081" duration="1875000" />
       <workItem from="1575910903147" duration="1101000" />
+      <workItem from="1576511148535" duration="976000" />
+      <workItem from="1576950690752" duration="2471000" />
     </task>
     <servers />
   </component>
@@ -169,10 +175,30 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="361" y="70" key="#Project_Structure" timestamp="1576950733732">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="70" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1576950733732" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1575793125535">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1575793125535" />
+    <state width="1493" height="203" key="GridCell.Tab.0.bottom" timestamp="1576512493835">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="203" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1576512493835" />
+    <state width="1493" height="203" key="GridCell.Tab.0.center" timestamp="1576512493834">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="203" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1576512493834" />
+    <state width="1493" height="203" key="GridCell.Tab.0.left" timestamp="1576512493834">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="203" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1576512493834" />
+    <state width="1493" height="203" key="GridCell.Tab.0.right" timestamp="1576512493834">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="203" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1576512493834" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1575793104781">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -188,93 +214,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>web1</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: javax.servlet:javax.servlet-api:3.1.0</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

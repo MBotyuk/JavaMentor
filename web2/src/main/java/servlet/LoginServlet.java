@@ -16,6 +16,13 @@ public class LoginServlet extends HttpServlet {
     UserService userService = UserService.getUserService();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().println(PageGenerator.getPageGenerator().getPage("authPage.html", null));
+        resp.setContentType("text/html;charset=utf-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -30,31 +37,20 @@ public class LoginServlet extends HttpServlet {
 
         test(resp);
 
-        if (flag){
+        if (flag) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.getWriter().println(PageGenerator.getPageGenerator().getPage("authPage.html", null));
-
-        resp.setContentType("text/html;charset=utf-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-    }
-
     private void test(HttpServletResponse resp) throws IOException {
-        for (User user : userService.getAllUsers()){
+        for (User user : userService.getAllUsers()) {
             resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
         }
 
-        for (User user : userService.getAllAuth()){
+        for (User user : userService.getAllAuth()) {
             resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
         }
-
     }
-
 }

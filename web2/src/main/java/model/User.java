@@ -51,6 +51,8 @@ public class User {
         return email.equals(user.getEmail());
     }
 
+    // хотел сделать через почту, каждый символ с char, потом сложить все в одну строку и перевести в число
+    // или email.hashCode, но не уверен что всегда это сработает
     @Override
     public int hashCode() {
         long result = id;

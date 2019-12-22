@@ -16,9 +16,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         resp.getWriter().println(PageGenerator.getPageGenerator().getPage("registerPage.html", null));
-
         resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
     }
@@ -37,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
 
         test(resp);
 
-        if (flag){
+        if (flag) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);
@@ -45,14 +43,12 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     private void test(HttpServletResponse resp) throws IOException {
-        for (User user : userService.getAllUsers()){
+        for (User user : userService.getAllUsers()) {
             resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
         }
 
-        for (User user : userService.getAllAuth()){
+        for (User user : userService.getAllAuth()) {
             resp.getWriter().print(user.getId() + "\n" + user.getEmail() + "\n" + user.getPassword() + "\n");
         }
-
     }
-
 }
