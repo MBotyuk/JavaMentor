@@ -1,26 +1,19 @@
 package model;
 
-import DAO.DailyReportDao;
-import org.hibernate.Session;
-import service.CarService;
-import service.DailyReportService;
-import util.DBHelper;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "daily_reports")
 public class DailyReport {
 
-//    private static DailyReport dailyReport;
-//
-//    public static DailyReport getInstance() {
-//        if (dailyReport == null) {
-//            dailyReport = new DailyReport(0L, 0L);
-//            DailyReportService.getInstance().addDailyReport(dailyReport);
-//        }
-//        return dailyReport;
-//    }
+    private static DailyReport dailyReport;
+
+    public static DailyReport getInstance() {
+        if (dailyReport == null) {
+            dailyReport = new DailyReport(0L, 0L);
+        }
+        return dailyReport;
+    }
 
     @Id
     @Column(name = "id")
@@ -55,7 +48,7 @@ public class DailyReport {
     }
 
     public void setEarnings(Long earnings) {
-        this.earnings = earnings;
+        this.earnings += earnings;
     }
 
     public Long getSoldCars() {
@@ -64,5 +57,13 @@ public class DailyReport {
 
     public void setSoldCars(Long soldCars) {
         this.soldCars = soldCars;
+    }
+
+    public void setSoldCars() {
+        this.soldCars++;
+    }
+
+    public void delete() {
+        dailyReport = null;
     }
 }

@@ -1,16 +1,14 @@
 package service;
 
 import DAO.CarDao;
-import DAO.DailyReportDao;
 import model.Car;
-import org.hibernate.Session;
+import model.DailyReport;
 import org.hibernate.SessionFactory;
 import util.DBHelper;
 
 import java.util.List;
 
 public class CarService {
-    private long[] dailyReportArray = new long[2];
 
     private static CarService carService;
 
@@ -47,28 +45,19 @@ public class CarService {
         for (Car carOfBrand : new CarDao(sessionFactory.openSession()).getAllCarOfBrand(car.getBrand())) {
             if (carOfBrand.equals(car)) {
                 new CarDao(sessionFactory.openSession()).delCar(carOfBrand);
-                dailyReportArray[0] = dailyReportArray[0] + carOfBrand.getPrice();
-                dailyReportArray[1] = dailyReportArray[1] + 1;
+                DailyReport.getInstance().setEarnings(carOfBrand.getPrice());
+                DailyReport.getInstance().setSoldCars();
                 return carOfBrand;
             }
         }
         return null;
     }
 
-    public long[] getDailyReportArray() {
-        return dailyReportArray;
-    }
-
-    public void refreshDailyReportArray() {
-        dailyReportArray[0] = 0;
-        dailyReportArray[1] = 0;
-    }
-
     public int count(String brand) {
         return new CarDao(sessionFactory.openSession()).count(brand);
     }
 
-    public void refresh() {
-        new CarDao(sessionFactory.openSession()).refresh();
+    public void delete() {
+        new CarDao(sessionFactory.openSession()).delete();
     }
 }

@@ -1,6 +1,5 @@
 package DAO;
 
-import model.Car;
 import model.DailyReport;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,11 +23,8 @@ public class DailyReportDao {
     }
 
     public DailyReport getLastReport() {
-        Transaction transaction = session.beginTransaction();
-        List<DailyReport> dailyReports = session.createQuery("SELECT MAX(id) WHERE cars").list();
-        transaction.commit();
-        session.close();
-        return dailyReports.get(1);
+        List<DailyReport> allDailyReport = getAllDailyReport();
+        return allDailyReport.get(allDailyReport.size() - 1);
     }
 
     public void addDailyReport(DailyReport dailyReport) {
@@ -38,9 +34,9 @@ public class DailyReportDao {
         session.close();
     }
 
-    public void refresh() {
+    public void delete() {
         Transaction transaction = session.beginTransaction();
-        session.clear();
+        session.createQuery("DELETE FROM DailyReport").executeUpdate();
         transaction.commit();
         session.close();
     }

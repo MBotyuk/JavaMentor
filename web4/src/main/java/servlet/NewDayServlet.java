@@ -1,7 +1,6 @@
 package servlet;
 
 import model.DailyReport;
-import service.CarService;
 import service.DailyReportService;
 
 import javax.servlet.ServletException;
@@ -15,9 +14,7 @@ public class NewDayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DailyReportService dailyReportService = DailyReportService.getInstance();
-        CarService carService = CarService.getInstance();
-        long[] dailyReportArray = carService.getDailyReportArray();
-        dailyReportService.addDailyReport(new DailyReport(dailyReportArray[0], dailyReportArray[1]));
-        carService.refreshDailyReportArray();
+        dailyReportService.addDailyReport(DailyReport.getInstance());
+        DailyReport.getInstance().delete();
     }
 }

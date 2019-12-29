@@ -1,8 +1,6 @@
 package DAO;
 
 import model.Car;
-import model.DailyReport;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -54,9 +52,9 @@ public class CarDao {
         return result;
     }
 
-    public void refresh() {
+    public void delete() {
         Transaction transaction = session.beginTransaction();
-        session.clear();
+        session.createQuery("DELETE FROM Car").executeUpdate();
         transaction.commit();
         session.close();
     }

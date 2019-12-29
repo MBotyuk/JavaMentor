@@ -1,11 +1,11 @@
 package service;
 
-import DAO.DailyReportDao;
-import model.DailyReport;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
+        import DAO.DailyReportDao;
+        import model.DailyReport;
+        import org.hibernate.SessionFactory;
+        import util.DBHelper;
 
-import java.util.List;
+        import java.util.List;
 
 public class DailyReportService {
 
@@ -28,7 +28,6 @@ public class DailyReportService {
         return new DailyReportDao(sessionFactory.openSession()).getAllDailyReport();
     }
 
-
     public DailyReport getLastReport() {
         return new DailyReportDao(sessionFactory.openSession()).getLastReport();
     }
@@ -37,8 +36,7 @@ public class DailyReportService {
         new DailyReportDao(sessionFactory.openSession()).addDailyReport(dailyReport);
     }
 
-    public void refresh() {
-        new DailyReportDao(sessionFactory.openSession()).refresh();
+    public void delete() {
+        new DailyReportDao(sessionFactory.openSession()).delete();
     }
-
 }

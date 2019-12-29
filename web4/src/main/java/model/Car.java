@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cars")
@@ -106,7 +105,4 @@ public class Car {
                 '}';
     }
 
-    public int compareTo(Car o) {
-        return (this.model + this.brand + this.licensePlate).compareTo(o.model + o.brand + o.licensePlate);
-    }
 }

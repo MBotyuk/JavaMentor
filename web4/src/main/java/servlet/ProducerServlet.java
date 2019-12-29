@@ -1,13 +1,13 @@
 package servlet;
 
-import model.Car;
-import service.CarService;
+        import model.Car;
+        import service.CarService;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+        import javax.servlet.ServletException;
+        import javax.servlet.http.HttpServlet;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import java.io.IOException;
 
 public class ProducerServlet extends HttpServlet {
 
@@ -18,7 +18,7 @@ public class ProducerServlet extends HttpServlet {
         String licensePlate = req.getParameter("licensePlate");
         Long price = Long.valueOf(req.getParameter("price"));
 
-        if (CarService.getInstance().addCar(new Car (brand, model, licensePlate, price))) {
+        if (CarService.getInstance().addCar(new Car(brand, model, licensePlate, price))) {
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);

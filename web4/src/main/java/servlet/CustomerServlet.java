@@ -16,6 +16,10 @@ public class CustomerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
         String json = gson.toJson(CarService.getInstance().getAllCars());
+
+        resp.getWriter().println(json);
+        resp.setContentType("text/html;charset=utf-8");
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -24,14 +28,7 @@ public class CustomerServlet extends HttpServlet {
         String model = req.getParameter("model");
         String licensePlate = req.getParameter("licensePlate");
 
-
         Car car = CarService.getInstance().buyCar(new Car(brand, model, licensePlate, 0L));
-
-
-        for (Car carOne : CarService.getInstance().getAllCars()) {
-            System.out.println(carOne.toString());
-        }
-        System.out.printf("----------------------");
 
         if (car != null) {
             resp.setStatus(HttpServletResponse.SC_OK);
@@ -39,5 +36,4 @@ public class CustomerServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
-
 }
