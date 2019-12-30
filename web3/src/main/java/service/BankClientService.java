@@ -139,7 +139,7 @@ public class BankClientService {
 
     private static Connection getMysqlConnection() {
         try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
+            DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
 
             StringBuilder url = new StringBuilder();
 
@@ -147,7 +147,7 @@ public class BankClientService {
                     append("jdbc:mysql://").        //db type
                     append("localhost:").           //host name
                     append("3306/").                //port
-                    append("mysql?").               //db name
+                    append("mysql?serverTimezone=UTC&").               //db name
                     append("user=root&").          //login
                     append("password=folk1987");   //password
 
