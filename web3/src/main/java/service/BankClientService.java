@@ -151,7 +151,6 @@ public class BankClientService {
                     append("user=root&").          //login
                     append("password=folk1987");   //password
 
-
             System.out.println("URL: " + url + "\n");
 
             Connection connection = DriverManager.getConnection(url.toString());
@@ -164,5 +163,5 @@ public class BankClientService {
 
     public static BankClientDAO getBankClientDAO() {
         return new BankClientDAO(getMysqlConnection());
-    } // убрал private на public
+    }
 }
