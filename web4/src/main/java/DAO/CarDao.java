@@ -38,10 +38,8 @@ public class CarDao {
     }
 
     public void delCar(Car car) {
-        Transaction transaction = session.beginTransaction();
-        session.delete(car);
-        transaction.commit();
-        session.close();
+
+
     }
 
     public int count(String brand) {

@@ -17,12 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 public class UsersServlet extends HttpServlet {
 
     @Override
-    public void init() throws ServletException {
-//        UserService userService = new UserService();
-//        userService.clearTable();
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         UserService userService = new UserService();
@@ -34,33 +28,18 @@ public class UsersServlet extends HttpServlet {
             req.setAttribute("users", "БД пуста!");
         }
         getServletContext().getRequestDispatcher("/users.jsp").forward(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String button = req.getParameter("button");
         if (button != null) {
-            if (button.equals("Edit")) {
-                doPut(req, resp);
-                return;
-            }
+
             if (button.equals("Delete")) {
                 doDelete(req, resp);
                 return;
             }
-        } else {
-            UserService userService = new UserService();
-            userService.addUser(new User(req.getParameter("firstName"), req.getParameter("secondName"), req.getParameter("email"), req.getParameter("password")));
-            doGet(req, resp);
         }
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-
     }
 
     @Override

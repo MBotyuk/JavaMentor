@@ -1,116 +1,64 @@
 package service;
 
-import dao.UserDAO;
+import dao.UserDaoFactory;
 import model.User;
 
-import java.sql.*;
 import java.util.List;
 
 public class UserService {
+
+    UserDaoFactory dao = new UserDaoFactory();
 
     public UserService() {
     }
 
     public void createTable() {
-        UserDAO dao = getUserDAO();
-        try {
-            dao.createTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        dao.getDAO().createTable();
     }
 
     public void clearTable() {
-        UserDAO dao = getUserDAO();
-        try {
-            dao.clearTable();
-        } catch (SQLException e) {
-        }
+        dao.getDAO().clearTable();
     }
 
-    public List<User> getAllUser() {
-        UserDAO userDAO = getUserDAO();
-        if (userDAO.getAllUser() != null) {
-            return userDAO.getAllUser();
+    public User getUser(long id) {
+        if (dao.getDAO().getNumberOfUserInTable() > 0) {
+            return (User) dao.getDAO().getUser(id);
         }
         return null;
     }
 
+    public boolean editUser(User user) {
+        if (dao.getDAO().isUser(user) == 0) {
+            dao.getDAO().editUser(user);
+            return true;
+        }
+        return false;
+    }
+
+    public List<User> getAllUser() {
+        createTable();
+        return dao.getDAO().getAllUser();
+    }
+
     public boolean addUser(User user) {
-        UserDAO userDAO = getUserDAO();
-        boolean result = false;
-
-        try {
-            userDAO.getConnection().setAutoCommit(false);
-            createTable();
-            if (userDAO.addUser(user)) {
-                result = true;
-            }
-            userDAO.getConnection().commit();
-        } catch (SQLException e) {
-
-            try {
-                userDAO.getConnection().rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+        if (dao.getDAO().getNumberOfUserInTable() > 0) {
+            if (dao.getDAO().isUser(user) == 0) {
+                if (dao.getDAO().addUser(user)) {
+                    return true;
+                }
+                return false;
             }
             return false;
-        } finally {
 
-            try {
-                userDAO.getConnection().setAutoCommit(true);
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } else {
+            if (dao.getDAO().addUser(user)) {
+                return true;
             }
-        }
-        return result;
-    }
-
-    public boolean delUser(Long id) {
-        try {
-            getUserDAO().delUser(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
-        return true;
     }
 
-    private static Connection getMysqlConnection() {
-
-        try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
-
-            StringBuilder url = new StringBuilder();
-
-            url.
-                    append("jdbc:mysql://").                //db type
-                    append("localhost:").                   //host name
-                    append("3306/").                        //port
-                    append("mysqlCRUD?serverTimezone=UTC&").//db name
-                    append("user=root&").                   //login
-                    append("password=folk1987");            //password
-
-            System.out.println("URL: " + url + "\n");
-
-            Connection connection = DriverManager.getConnection(url.toString());
-            return connection;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        }
-    } // +
-
-    public static UserDAO getUserDAO() {
-        return new UserDAO(getMysqlConnection());
+    public void delUser(Long id) {
+        dao.getDAO().delUser(id);
     }
 }

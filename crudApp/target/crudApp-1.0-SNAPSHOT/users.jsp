@@ -9,16 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>All Users</title>
 </head>
 <body>
-<form method="POST" action="${pageContext.request.contextPath}/users">
-    <p> Имя <input type="text" name="firstName"> </p>
-    <p> Фамилия <input type="text" name="secondName"> </p>
-    <p> e-mail <input type="email" name="email"> </p>
-    <p> Пароль <input type="password" name="password"> </p>
-    <input type="submit" value="Add">
+<form action="${pageContext.request.contextPath}/add" method="get">
+    <button>Add User</button>
 </form>
+
 <c:forEach var="user" items="${users}">
 <table width = 60% border = 1px>
     <tr>
@@ -26,9 +23,12 @@
             <c:out value="${user}"/>
         </td>
         <td width = 20% border = 1px>
+            <form action="${pageContext.request.contextPath}/edit" method="get">
+                <input type="hidden" name="userId" value=${user.id}>
+                <input type="submit" value="Edit">
+            </form>
             <form action="${pageContext.request.contextPath}/users" method="post">
                 <input type="hidden" name="userId" value=${user.id}>
-                <input type="submit" name="button" value="Edit">
                 <input type="submit" name="button" value="Delete">
             </form>
         </td>

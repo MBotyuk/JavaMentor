@@ -1,17 +1,33 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 
-    int id;
-    String firstName;
-    String secondName;
-    String email;
-    String password;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "firstName", nullable = true)
+    private String firstName;
+
+    @Column(name = "secondName", nullable = true)
+    private String secondName;
+
+    @Column(name = "email", nullable = true)
+    private String email;
+
+    @Column(name = "password", nullable = true)
+    private String password;
 
 
-    public User() {}
+    public User() {
+    }
 
-    public User(int id, String firstName, String secondName, String email, String password) {
+    public User(long id, String firstName, String secondName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -26,11 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,6 +82,10 @@ public class User {
         this.password = password;
     }
 
+    public User getDefaultUser() {
+        return new User(0, "", "", "", "");
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +106,6 @@ public class User {
 
     @Override
     public String toString() {
-        return  firstName + " " + secondName + " " + email;
+        return firstName + " " + secondName + " " + email;
     }
 }

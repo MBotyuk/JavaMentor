@@ -24,7 +24,7 @@ public class Main {
         context.addServlet(new ServletHolder(registrationServlet), "/registration");
 
 
-        Server server = new Server(8080);
+        Server server = new Server(8083);
         server.setHandler(context);
 
         server.start();
