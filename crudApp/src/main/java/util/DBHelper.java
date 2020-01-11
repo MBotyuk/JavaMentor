@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DBHelper <T> {
+public class DBHelper<T> {
 
     private static SessionFactory sessionFactory;
     private static Connection connection;
@@ -28,6 +28,7 @@ public class DBHelper <T> {
             properties.load(new FileReader(file));
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Ошибка при открытии файла db.properties.");
         }
         typeDAO = properties.getProperty("typeDAO");
     }
@@ -51,7 +52,7 @@ public class DBHelper <T> {
         return typeDAO;
     }
 
-    @SuppressWarnings("UnusedDeclaration")
+    //@SuppressWarnings("UnusedDeclaration")
     private static SessionFactory createSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
@@ -62,7 +63,7 @@ public class DBHelper <T> {
         configuration.setProperty("hibernate.connection.username", "root");
         configuration.setProperty("hibernate.connection.password", "folk1987");
         configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "validate"); //update, create
 
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(configuration.getProperties());
@@ -71,13 +72,11 @@ public class DBHelper <T> {
         return configuration.buildSessionFactory(serviceRegistry);
     }
 
-
     private static Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
 
             StringBuilder url = new StringBuilder();
-
             url.
                     append("jdbc:mysql://").                //db type
                     append("localhost:").                   //host name
@@ -92,6 +91,7 @@ public class DBHelper <T> {
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.err.println("Ошибка при получении Connection.");
             throw new IllegalStateException();
         }
     }

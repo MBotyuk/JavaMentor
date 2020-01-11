@@ -42,7 +42,9 @@ public class UserService {
 
     public boolean addUser(User user) {
         if (dao.getDAO().getNumberOfUserInTable() > 0) {
+
             if (dao.getDAO().isUser(user) == 0) {
+
                 if (dao.getDAO().addUser(user)) {
                     return true;
                 }
@@ -51,6 +53,7 @@ public class UserService {
             return false;
 
         } else {
+
             if (dao.getDAO().addUser(user)) {
                 return true;
             }

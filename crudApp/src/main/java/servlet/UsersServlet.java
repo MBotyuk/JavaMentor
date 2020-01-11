@@ -4,7 +4,6 @@ import model.User;
 import service.UserService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,21 +17,22 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         UserService userService = new UserService();
         List<User> allUsers = userService.getAllUser();
+
         if (allUsers != null) {
             req.setAttribute("users", allUsers);
-
         } else {
             req.setAttribute("users", "БД пуста!");
         }
+
         getServletContext().getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String button = req.getParameter("button");
+
         if (button != null) {
 
             if (button.equals("Delete")) {

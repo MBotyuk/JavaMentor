@@ -21,24 +21,27 @@ public class EditServlet extends HttpServlet {
         Long userId = Long.valueOf(req.getParameter("userId"));
         UserService userService = new UserService();
         User user = userService.getUser(userId);
+
         if (user != null) {
             req.setAttribute("user", user);
             userOld = user;
         } else {
-            userOld = new User().getDefaultUser();
+            userOld = new User("","","","");
             req.setAttribute("user", userOld);
         }
-        getServletContext().getRequestDispatcher("/edit.jsp").forward(req, resp);
 
+        getServletContext().getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserService();
         User user = new User(Long.valueOf(req.getParameter("id")), req.getParameter("firstName"), req.getParameter("secondName"), req.getParameter("email"), req.getParameter("password"));
-        if (!userService.editUser(user)){
+
+        if (!userService.editUser(user)) {
             user = userOld;
         }
+
         req.setAttribute("user", user);
         getServletContext().getRequestDispatcher("/edit.jsp").forward(req, resp);
     }

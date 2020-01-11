@@ -2,7 +2,6 @@ package dao;
 
 import model.User;
 import org.hibernate.*;
-import org.hibernate.criterion.Projections;
 
 import java.util.List;
 
@@ -22,31 +21,29 @@ public class UserHibernateDAO implements UserDAO<User> {
     }
 
     public User getUser(long id) {
-            Transaction transaction = session.beginTransaction();
-            //User user = session.createQuery("FROM User where id= " + id + "");
-            User user = (User) session.get(User.class, id);
-            transaction.commit();
-            session.close();
-            return user;
+        Transaction transaction = session.beginTransaction();
+
+        //User user = session.createQuery("FROM User where id= " + id + "");
+
+        User user = (User) session.get(User.class, id);
+        transaction.commit();
+        session.close();
+        return user;
     }
 
     public boolean addUser(User user) {
-            Transaction transaction = session.beginTransaction();
-            session.save(user);
-            transaction.commit();
-            session.close();
-            return true;
+        Transaction transaction = session.beginTransaction();
+        session.save(user);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     public long getNumberOfUserInTable() {
         Transaction transaction = session.beginTransaction();
         long result = (long) session.createQuery("select count(*) from User").uniqueResult();
-//        long result = (long) session.createCriteria("User").setProjection(Projections.rowCount()).uniqueResult();
-//        Criteria criteria = session.createCriteria(User.class);
-//        long result = (long) criteria.uniqueResult();
         transaction.commit();
         session.close();
-
         return result;
     }
 
@@ -58,12 +55,14 @@ public class UserHibernateDAO implements UserDAO<User> {
 //            return result;
 //    }
 
-    public long isUser (User user) {
+    public long isUser(User user) {
         Query query = session.createQuery("select 1 from User t where t.email = :email");
         query.setString("email", user.getEmail());
-        if (query.uniqueResult() != null){
+
+        if (query.uniqueResult() != null) {
             return 1;
-        } return 0;
+        }
+        return 0;
     }
 
     public void createTable() {
@@ -91,5 +90,4 @@ public class UserHibernateDAO implements UserDAO<User> {
         transaction.commit();
         session.close();
     }
-
 }

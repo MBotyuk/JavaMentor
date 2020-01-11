@@ -82,10 +82,6 @@ public class User {
         this.password = password;
     }
 
-    public User getDefaultUser() {
-        return new User(0, "", "", "", "");
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

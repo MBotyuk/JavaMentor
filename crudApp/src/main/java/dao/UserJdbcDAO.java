@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserJdbcDAO implements UserDAO<User>{
+public class UserJdbcDAO implements UserDAO<User> {
 
     private Connection connection;
     private Executor executor;
@@ -25,6 +25,7 @@ public class UserJdbcDAO implements UserDAO<User>{
         List<User> list = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
             ResultSet result = stmt.executeQuery("SELECT * FROM users");
+
             while (result.next()) {
                 list.add(new User(result.getInt(1), result.getString(2),
                         result.getString(3), result.getString(4), result.getString(4)));
@@ -42,6 +43,7 @@ public class UserJdbcDAO implements UserDAO<User>{
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute("select * from users where id= " + id + "");
                 ResultSet result = stmt.getResultSet();
+
                 while (result.next()) {
                     Long idUser = result.getLong(1);
                     String firstName = result.getString(2);
@@ -69,9 +71,7 @@ public class UserJdbcDAO implements UserDAO<User>{
     }
 
     public boolean addUser(User user) {
-
         boolean result = false;
-
         try {
             connection.setAutoCommit(false);
             createTable();
@@ -108,6 +108,7 @@ public class UserJdbcDAO implements UserDAO<User>{
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute("select * from users where email='" + user.getEmail() + "' and password='" + user.getPassword() + "'");
                 ResultSet result = stmt.getResultSet();
+
                 while (result.next()) {
                     Long id = result.getLong(1);
                     result.close();
@@ -125,6 +126,7 @@ public class UserJdbcDAO implements UserDAO<User>{
         try (Statement stmt = connection.createStatement()) {
             stmt.executeQuery("SELECT EXISTS (SELECT 1 FROM users)");
             ResultSet result = stmt.getResultSet();
+
             while (result.next()) {
                 long number = result.getLong(1);
                 result.close();
@@ -159,7 +161,7 @@ public class UserJdbcDAO implements UserDAO<User>{
 
     public void clearTable() {
         try (Statement stmt = connection.createStatement()) {
-        stmt.executeUpdate("DROP TABLE IF EXISTS users");
+            stmt.executeUpdate("DROP TABLE IF EXISTS users");
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Не удалось очистить таблицу.");
