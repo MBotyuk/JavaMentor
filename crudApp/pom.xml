@@ -10,16 +10,7 @@
     <packaging>war</packaging>
 
     <build>
-<!--    <plugins>-->
-<!--    <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-war-plugin</artifactId>-->
-<!--        <version>3.1.1</version>-->
-<!--        <configuration>-->
-<!--            <failOnMissingWebXml>false</failOnMissingWebXml>-->
-<!--        </configuration>-->
-<!--    </plugin>-->
-<!--    </plugins>-->
+        <finalName>crudApp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -29,11 +20,15 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-impl</artifactId>

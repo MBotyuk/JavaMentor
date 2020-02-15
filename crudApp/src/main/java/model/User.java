@@ -1,6 +1,6 @@
 package model;
 
-import javax.persistence.*;
+        import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -23,23 +23,28 @@ public class User {
     @Column(name = "password", nullable = true)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = true)
+    private ROLE role;
 
     public User() {
     }
 
-    public User(long id, String firstName, String secondName, String email, String password) {
+    public User(long id, String firstName, String secondName, String email, String password, ROLE role) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    public User(String firstName, String secondName, String email, String password) {
+    public User(String firstName, String secondName, String email, String password, ROLE role) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public long getId() {
@@ -82,6 +87,18 @@ public class User {
         this.password = password;
     }
 
+    public ROLE getRole() {
+        return role;
+    }
+
+    public void setRole(ROLE role) {
+        this.role = role;
+    }
+
+    public enum ROLE {
+        USER, ADMIN, UNKNOWN
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,6 +119,6 @@ public class User {
 
     @Override
     public String toString() {
-        return firstName + " " + secondName + " " + email;
+        return id + " " + firstName + " " + secondName + " " + email + " " + password + " " + role;
     }
 }

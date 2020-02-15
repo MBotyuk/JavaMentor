@@ -2,28 +2,34 @@ package dao;
 
 import org.hibernate.SessionFactory;
 import util.DBHelper;
+import util.PropertyReader;
 
 import java.sql.Connection;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class UserDaoFactory {
 
     private static SessionFactory sessionFactory;
     private static Connection connection;
+    private static AtomicReference<UserHibernateDAO> userHibernateDAO;
+    private static AtomicReference<UserJdbcDAO> userJdbcDAO;
 
     public UserDAO getDAO() {
 
-        if (DBHelper.getTypeDAO().equals("hibernate")) {
+        if (PropertyReader.getType().equals("hibernate")) {
 
             if (sessionFactory == null) {
-                sessionFactory = DBHelper.getConnectionOrSessionFactory();
+                sessionFactory = DBHelper.createSessionFactory();
+                userHibernateDAO = new AtomicReference<>(new UserHibernateDAO(sessionFactory));
             }
-            return new UserHibernateDAO(sessionFactory.openSession());
+            return (UserDAO) userHibernateDAO.get();
         } else {
 
             if (connection == null) {
-                connection = DBHelper.getConnectionOrSessionFactory();
+                connection = DBHelper.getConnection();
+                userJdbcDAO = new AtomicReference<>(new UserJdbcDAO(connection));
             }
-            return new UserJdbcDAO(connection);
+            return (UserDAO) userJdbcDAO.get();
         }
     }
 }

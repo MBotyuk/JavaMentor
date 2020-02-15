@@ -12,13 +12,15 @@ public interface UserDAO<T> {
 
     void delUser(long id);
 
-    void editUser(T t);
+    boolean editUser(T t);
 
     long getNumberOfUserInTable();
 
-    long isUser(T t);
+    long isUserByEmail(T t);
 
     void createTable();
 
     void clearTable();
+
+    T getUserByEmailPassword(String email, String password);
 }

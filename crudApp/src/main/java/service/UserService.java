@@ -1,67 +1,28 @@
 package service;
 
-import dao.UserDaoFactory;
-import model.User;
-
 import java.util.List;
 
-public class UserService {
+public interface UserService<T> {
 
-    UserDaoFactory dao = new UserDaoFactory();
+    void createTable();
 
-    public UserService() {
-    }
+    void clearTable();
 
-    public void createTable() {
-        dao.getDAO().createTable();
-    }
+    T getUser(long id);
 
-    public void clearTable() {
-        dao.getDAO().clearTable();
-    }
+    boolean editUser(T t);
 
-    public User getUser(long id) {
-        if (dao.getDAO().getNumberOfUserInTable() > 0) {
-            return (User) dao.getDAO().getUser(id);
-        }
-        return null;
-    }
+    public long getNumberOfUserInTable();
 
-    public boolean editUser(User user) {
-        if (dao.getDAO().isUser(user) == 0) {
-            dao.getDAO().editUser(user);
-            return true;
-        }
-        return false;
-    }
+    long isUser(T t);
 
-    public List<User> getAllUser() {
-        createTable();
-        return dao.getDAO().getAllUser();
-    }
+    List<T> getAllUser();
 
-    public boolean addUser(User user) {
-        if (dao.getDAO().getNumberOfUserInTable() > 0) {
+    void delUser(Long id);
 
-            if (dao.getDAO().isUser(user) == 0) {
+    boolean addUser(T t);
 
-                if (dao.getDAO().addUser(user)) {
-                    return true;
-                }
-                return false;
-            }
-            return false;
+    T getUserByEmailPassword(String email, String password);
 
-        } else {
-
-            if (dao.getDAO().addUser(user)) {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    public void delUser(Long id) {
-        dao.getDAO().delUser(id);
-    }
+    Enum getRoleByEmailPassword(String email, String password);
 }
