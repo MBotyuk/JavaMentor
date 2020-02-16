@@ -20,15 +20,14 @@
         <th class="left-side">id</th>
         <th style="width: 100%">name</th>
         <th>email</th>
-        <th>password</th>
-        <th colspan="2" class="right-side">action</th>
+        <th>edit</th>
+        <th colspan="2" class="right-side">delete</th>
     </tr>
     <c:forEach var="user" items="${usersList}">
         <tr>
             <td class="left-side">${user.id}</td>
             <td class="title">${user.name}</td>
             <td>${user.email}</td>
-            <td>${user.password}</td>
             <td>
                 <a href="/admin/edit/${user.id}"><span class="icon icon-edit"></span></a>
             </td>
@@ -44,6 +43,8 @@
             </a>
         </td>
     </tr>
+    <br>
+    <h4><a href="/logout">Выйти</a></h4>
 </table>
 </body>
 </html>

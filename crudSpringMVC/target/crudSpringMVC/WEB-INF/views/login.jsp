@@ -16,30 +16,9 @@
 </head>
 
 <body>
-<%--<div>--%>
-<%--    <form method="POST" action="/login">--%>
-<%--        <h2>Введите Логин и Пароль</h2>--%>
-<%--        <p style="">${message}</p>--%>
-<%--        <label>--%>
-<%--            <input name="username" type="text" placeholder="username"/>--%>
-<%--        </label>--%>
-<%--        <label>--%>
-<%--            <input name="password" type="password" placeholder="password"/>--%>
-<%--        </label>--%>
-<%--        <label for="remember-me">--%>
-<%--            <input type="checkbox" id="remember-me" name="remember-me">Запомнить меня</label>--%>
-<%--        <button type="submit">Войти</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
-<%--<div>--%>
-<%--    <form action="/registration" method="GET">--%>
-<%--        <input type="submit" value="Регистрация">--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-<sec:authorize access="isAuthenticated()">
-    <% response.sendRedirect("/"); %>
-</sec:authorize>
+<%--<sec:authorize access="isAuthenticated()">--%>
+<%--    <% response.sendRedirect("/"); %>--%>
+<%--</sec:authorize>--%>
 <div>
     <form method="POST" action="/login">
         <h2>Вход в систему</h2>

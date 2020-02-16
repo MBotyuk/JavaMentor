@@ -1,6 +1,5 @@
 package com.gmail.mbotyuk.controller;
 
-import com.gmail.mbotyuk.model.Role;
 import com.gmail.mbotyuk.model.User;
 import com.gmail.mbotyuk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
 
 @Controller
 public class AdminController {
 
     private boolean error = false;
-    private Long idEdit;
-    private String emailOld;
-    Set<Role> roleOld;
+    User userOld;
 
     private UserService userService;
 
@@ -33,15 +29,20 @@ public class AdminController {
 
     @GetMapping("/admin/edit/{id}")
     public String editPage(@PathVariable("id") Long id, Model model) {
-        this.idEdit = id;
-        User user = userService.getById(idEdit);
-        emailOld = user.getEmail();
-        roleOld = user.getRoles();
+//        idEdit = id;
+        userOld = userService.getById(id);
+        if (userOld.getAuthorities().iterator().next().getAuthority().contains("ADMIN")){
+            model.addAttribute("roleOne", "ADMIN");
+            model.addAttribute("roleTwo", "USER");
+        } else {
+            model.addAttribute("roleOne", "USER");
+            model.addAttribute("roleTwo", "ADMIN");
+        }
         if (error) {
             model.addAttribute("error", "данный email уже используется");
             error = false;
         }
-        model.addAttribute("user", user);
+        model.addAttribute("user", userOld);
         return "editPage";
     }
 
@@ -50,15 +51,23 @@ public class AdminController {
                             @RequestParam String name,
                             @RequestParam String email,
                             @RequestParam String password,
+                            @RequestParam String role,
                             Model model) {
         String url;
-        if (emailOld.equals(email) || userService.isByEmail(email)) {
+        Boolean flag = true;
+        if (userOld.getEmail().equals(email) || userService.isByEmail(email)) {
             url = "redirect:/admin";
-            User user = new User(idEdit, name, email, password, roleOld);
-            userService.edit(user);
+
+            if (password == "") {
+                flag = false;
+                password = userOld.getPassword();
+            }
+
+            User user = new User(userOld.getId(), name, email, password);
+            userService.edit(user, role, flag);
         } else {
             error = true;
-            url = "/admin/edit/" + idEdit;
+            url = "/admin/edit/" + userOld.getId();
         }
         return url;
     }
@@ -73,11 +82,11 @@ public class AdminController {
     }
 
     @PostMapping("/admin/add")
-    public String addUser(@ModelAttribute("user") User user, Model model) {
+    public String addUser(@ModelAttribute("user") User user, @RequestParam String role, Model model) {
         String url;
         if (userService.isByEmail(user.getEmail())) {
             url = "redirect:/admin";
-            userService.add(user, "USER");
+            userService.add(user, role);
         } else {
             error = true;
             url = "addPage";

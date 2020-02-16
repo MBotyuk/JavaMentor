@@ -16,13 +16,17 @@
 <body>
 <form class="style" action="/admin/edit" name="user" method="POST">
     <p class="heading">Edit User</p>
-<%--    <input type="hidden" name="id" value="${user.id}">--%>
     <p><input type="text" name="name" placeholder="name" value="${user.name}" maxlength="100" required autofocus
               pattern="^[^\s]+(\s.*)?$">
     <p><input type="email" name="email" placeholder="email" value="${user.email}" maxlength="40" required>
     <p class="error"><c:out value="${error}"/></p>
-    <p><input type="password" name="password" placeholder="password" value="${user.password}" maxlength="20" required>
+    <p><input type="password" name="password" placeholder="password" value="" maxlength="20">
     <p>
+    <p><select size="3" name="role">
+        <option disabled>Выберите роль</option>
+        <option selected value="${roleOne}">${roleOne}</option>
+        <option value="${roleTwo}">${roleTwo}</option>
+    </select></p>
         <input type="submit" value="Edit">
     </p>
 </form>

@@ -39,8 +39,8 @@ public class User implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_ROLE",
-            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {

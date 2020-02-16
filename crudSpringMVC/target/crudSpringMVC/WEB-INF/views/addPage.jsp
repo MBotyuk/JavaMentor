@@ -22,6 +22,11 @@
     <p class="error"><c:out value="${error}"/></p>
     <p><input type="password" name="password" placeholder="password" value="${user.password}" maxlength="20" required>
     <p>
+    <p><select size="3" name="role">
+        <option disabled>Выберите роль</option>
+        <option selected value="ADMIN">ADMIN</option>
+        <option value="USER">USER</option>
+    </select></p>
         <input type="submit" value="Add">
     </p>
 </form>

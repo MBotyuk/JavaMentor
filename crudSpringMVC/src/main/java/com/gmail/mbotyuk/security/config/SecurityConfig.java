@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -54,22 +56,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/**", "/admin/**").authenticated()
                 .antMatchers("/", "/res/**").permitAll()
-                .antMatchers("/user").hasRole("USER") //.access("hasAuthority('USER')")
-                .antMatchers("/admin", "/admin/**", "/user").hasRole("ADMIN") //.access("hasAuthority('ADMIN')")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutUrl("/logout") ///login?logout или вообще убрать
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll()
-                .invalidateHttpSession(true) //убрать
-                .deleteCookies("JSESSIONID") //убрать
-                //.and()
-                //.exceptionHandling()
-                //.accessDeniedPage("/403")
-        ;
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 }

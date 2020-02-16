@@ -28,7 +28,6 @@
             <td class="left-side">${user.id}</td>
             <td class="title">${user.name}</td>
             <td>${user.email}</td>
-<%--            <td>${user.password}</td>--%>
             <td>
             </td>
             <td class="right-side">

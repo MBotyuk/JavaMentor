@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserDAO userDAO, BCryptPasswordEncoder bCryptPasswordEncoder) { //@Qualifier("encoder")
         this.userDAO = userDAO;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -57,17 +57,25 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        if (role.equalsIgnoreCase("ADMIN")) {
-            user.setRoles(Collections.singleton(new Role(2L, "ADMIN")));
+        if (role.equalsIgnoreCase("admin")) {
+            user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
         } else {
-            user.setRoles(Collections.singleton(new Role(1L, "USER")));
+            user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userDAO.add(user);
     }
 
     @Override
-    public void edit(User user) {
+    public void edit(User user, String role, Boolean flag) {
+        if (role.equalsIgnoreCase("admin")) {
+            user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
+        } else {
+            user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        }
+        if (flag){
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         userDAO.edit(user);
     }
 }
