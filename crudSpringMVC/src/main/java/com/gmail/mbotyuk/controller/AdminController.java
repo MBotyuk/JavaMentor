@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequestMapping("/admin/")
 public class AdminController {
 
     private boolean error = false;
@@ -21,13 +22,13 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/")
     public String userList(Model model) {
         model.addAttribute("usersList", userService.allUsers());
         return "admin";
     }
 
-    @GetMapping("/admin/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editPage(@PathVariable("id") Long id, Model model) {
 //        idEdit = id;
         userOld = userService.getById(id);
@@ -46,7 +47,7 @@ public class AdminController {
         return "editPage";
     }
 
-    @PostMapping("/admin/edit")
+    @PostMapping("/edit")
     public String editUser(
                             @RequestParam String name,
                             @RequestParam String email,
@@ -72,7 +73,7 @@ public class AdminController {
         return url;
     }
 
-    @GetMapping("/admin/add")
+    @GetMapping("/add")
     public String addPage(Model model) {
         if (error) {
             model.addAttribute("error", "данный email уже используется");
@@ -81,7 +82,7 @@ public class AdminController {
         return "addPage";
     }
 
-    @PostMapping("/admin/add")
+    @PostMapping("/add")
     public String addUser(@ModelAttribute("user") User user, @RequestParam String role, Model model) {
         String url;
         if (userService.isByEmail(user.getEmail())) {
@@ -94,7 +95,7 @@ public class AdminController {
         return url;
     }
 
-    @GetMapping("/admin/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deletePage(@PathVariable("id") Long id, Model model) {
         User user = userService.getById(id);
         model.addAttribute("user", user);
@@ -102,7 +103,7 @@ public class AdminController {
         return "delPage";
     }
 
-    @PostMapping("/admin/delete")
+    @PostMapping("/delete")
     public String deleteUser() {
         return "redirect:/admin";
     }
