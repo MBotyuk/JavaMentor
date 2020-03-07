@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-//@RequestMapping("/admin/")
 public class AdminController {
-
-    private boolean error = false;
-    User userOld;
 
     private UserService userService;
 
@@ -24,29 +20,9 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String userList(Model model) {
-        model.addAttribute("usersList", userService.allUsers());
+            model.addAttribute("usersList", userService.allUsers());
         return "admin";
     }
-
-//    @GetMapping("/admin/edit/{id}")
-//    public String editPage(@PathVariable("id") Long id, Model model) {
-////        idEdit = id;
-//        userOld = userService.getById(id);
-////        if (userOld.getAuthorities().iterator().next().getAuthority().contains("ADMIN")){
-//
-//        if (userOld.getRoles().toString().contains("ADMIN")){
-//
-//            model.addAttribute("flag", "admin");
-//        } else {
-//            model.addAttribute("flag", "user");
-//        }
-//        if (error) {
-//            model.addAttribute("error", "данный email уже используется");
-//            error = false;
-//        }
-//        model.addAttribute("userEdit", userOld);
-//        return "redirect:/admin";
-//    }
 
     @PostMapping("/admin/edit")
     public String editUser( @RequestParam("id") Long idL,
@@ -56,7 +32,6 @@ public class AdminController {
                             @RequestParam String role,
                             Model model) {
         Boolean flag = true;
-        if (userService.getById(idL).getEmail().equals(email) || userService.isByEmail(email)) {
 
             if (password == "") {
                 flag = false;
@@ -65,31 +40,18 @@ public class AdminController {
 
             User user = new User(idL, name, email, password);
             userService.edit(user, role, flag);
-        } else {
-            error = true;
-        }
         return "redirect:/admin";
     }
 
     @GetMapping("/admin/add")
     public String addPage(Model model) {
         model.addAttribute("userAdd", new User());
-
-        if (error) {
-            model.addAttribute("error", "Email error");
-            error = false;
-        }
         return "redirect:/admin";
     }
 
     @PostMapping("/admin/add")
     public String addUser(@ModelAttribute("userAdd") User user, @RequestParam String role, Model model) {
-
-        if (userService.isByEmail(user.getEmail())) {
             userService.add(user, role);
-        } else {
-            error = true;
-        }
         return "redirect:/admin";
     }
 

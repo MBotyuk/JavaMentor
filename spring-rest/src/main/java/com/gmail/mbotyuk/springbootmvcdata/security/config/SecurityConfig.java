@@ -2,7 +2,6 @@ package com.gmail.mbotyuk.springbootmvcdata.security.config;
 
 import com.gmail.mbotyuk.springbootmvcdata.security.details.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,11 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder);
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -51,16 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(authenticationSuccessHandler)
-                //.usernameParameter("name")
-                //.passwordParameter("password")
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                //.antMatchers("/", "/static/**").permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()

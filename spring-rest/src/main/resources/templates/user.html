@@ -16,8 +16,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <ul class="nav flex-column nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin">Admin</a>
+                        <li class="nav-item" id="if">
+                            <!--                            <a class="nav-link" href="/admin" th:if="${user.getAuthorities().iterator().next().getAuthority().contains('ADMIN')}">Admin</a>-->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/user" data-toggle="pill">User</a>
@@ -39,12 +39,7 @@
                                 <th>Email</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr th:object="${user}">
-                                <td th:text="${user.id}">ID</td>
-                                <td th:text="${user.name}">Name</td>
-                                <td th:text="${user.email}">Email</td>
-                            </tr>
+                            <tbody id="tdataUser">
                             </tbody>
                         </table>
                     </div>
@@ -55,12 +50,8 @@
     </div>
 </div>
 
-    <div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: footer"/>
 
-<script>
-    $(function () {
-        $('#myTab li:eq(1) a').tab('show')
-    })
-</script>
+<script src="js/user.js"></script>
 </body>
 </html>

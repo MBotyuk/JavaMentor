@@ -1,12 +1,13 @@
 package com.gmail.mbotyuk.springbootmvcdata.models;
 
 
+import com.fasterxml.jackson.annotation.*;
 import com.sun.istack.internal.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.Set;
         @NamedQuery(name = "User.findByName",
                 query = "SELECT u FROM User u WHERE u.name = :name")})
 @Table(name = "USERS")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
     @Id
     @NotNull
@@ -42,6 +43,7 @@ public class User implements UserDetails {
     @JoinTable(name = "USER_TO_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     public User() {

@@ -19,7 +19,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication authentication) throws IOException {
 
-//        String targetUrl = authentication.getAuthorities().toString().contains("ADMIN") ? "/admin" : "/user";
         String targetUrl = authentication.getAuthorities().iterator().next().getAuthority().contains("ADMIN") ? "/admin" : "/user";
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

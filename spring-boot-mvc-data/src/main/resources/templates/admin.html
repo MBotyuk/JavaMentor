@@ -42,11 +42,11 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane container active" id="home" role="tabpanel">
+                        <div class="tab-pane active" id="home" role="tabpanel">
                             <nav class="navbar navbar-light bg-light" id="nav">
                                 <span class="navbar-brand mb-0 h1">All users</span>
                             </nav>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-striped table-light">
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -85,36 +85,36 @@
                                                                   th:id="${'userEditForm' + user.getId()}">
 
                                                                 <div class="form-group">
-                                                                    <label for="id_edit"><b>ID</b></label>
+                                                                    <label th:for="${'id_edit' + user.getId()}"><b>ID</b></label>
                                                                     <input type="text" readonly="readonly" name="id"
-                                                                           class="form-control" id="id_edit"
+                                                                           class="form-control" th:id="${'id_edit' + user.getId()}"
                                                                            th:value="${user.getId()}"/>
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="name_edit"><b>Name</b></label>
+                                                                    <label th:for="${'name_edit' + user.getId()}"><b>Name</b></label>
                                                                     <input type="text" name="name" class="form-control"
-                                                                           id="name_edit" th:value="${user.getName()}"/>
+                                                                           th:id="${'name_edit' + user.getId()}" th:value="${user.getName()}"/>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="email_edit"><b>Email</b></label>
+                                                                    <label th:for="${'email_edit' + user.getId()}"><b>Email</b></label>
                                                                     <input type="email" name="email"
                                                                            class="form-control"
-                                                                           id="email_edit"
+                                                                           th:id="${'email_edit' + user.getId()}"
                                                                            th:value="${user.getEmail()}"/>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="password_edit"><b>Password</b></label>
+                                                                    <label th:for="${'password_edit' + user.getId()}"><b>Password</b></label>
                                                                     <input type="password" name="password"
-                                                                           class="form-control" id="password_edit"/>
+                                                                           class="form-control" th:id="${'password_edit' + user.getId()}"/>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="role_edit"><b>Role</b></label>
+                                                                    <label th:for="${'role_edit' + user.getId()}"><b>Role</b></label>
 
 
                                                                     <select size="2" name="role"
                                                                             class="user-form-control"
-                                                                            multiple="multiple" id="role_edit">
+                                                                            multiple="multiple" th:id="${'role_edit' + user.getId()}">
                                                                         <option selected th:text="USER"> USER</option>
                                                                         <option th:text="ADMIN"> ADMIN</option>
 
@@ -137,19 +137,21 @@
 
                                             <div class="btn-group">
                                                 <a th:href="${'/admin/delete/'+user.getId()}"
-                                                   class="btn btn-primary">Delete</a>
-                                            </div>
+                                                   class="btn btn-danger">Delete</a>
+                                                </div>
                                         </div>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="tab-pane container fade" id="history">
-
+                        <div class="tab-pane fade bg-white" id="history">
+                            <nav class="navbar navbar-light bg-light" id="nav1">
+                                <span class="navbar-brand mb-0 h1">Add new user</span>
+                            </nav>
                             <form action="#" th:action="@{/admin/add}" th:object="${userAdd}" method="post">
 
-                                <table border="0" cellpadding="10">
+                                <table border="0" cellpadding="10" align="center">
                                     <tr>
                                         <td>Name:</td>
                                         <td>
@@ -181,8 +183,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
-                                            <button type="submit">Ad new user</button>
+                                        <td colspan="2" class="text-center">
+                                            <button type="submit" class="btn btn-success">Add new user</button>
                                         </td>
                                     </tr>
                                 </table>
